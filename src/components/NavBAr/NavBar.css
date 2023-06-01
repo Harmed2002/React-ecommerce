@@ -1,0 +1,22 @@
+.NavBar {
+	background-color: white;
+	height: 10vh;
+}
+
+ul {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 100%;
+	background-color: red;
+}
+
+li {
+	color: white;
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
