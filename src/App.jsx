@@ -1,17 +1,17 @@
-// import { useState } from 'react';
 import './App.css';
-import NavBar from './components/NavBAr/NavBar';
+// import NavBar from './components/NavBAr/NavBar';
+import AppBar from './components/AppBar/AppBar';
 import Header from './components/Header/Header';
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
 import CardProduct from './components/CardProduct/CardProduct';
 
 function App() {
-	// const [count, setCount] = useState(0)
 
 	return (
 		<>
 			<Header />
-			<NavBar />
+			{/* <NavBar /> */}
+			<AppBar />
 
 			<div>
 				<ItemListContainer greeting = "Saludos a nuestros clientes!" />
@@ -31,10 +31,10 @@ function App() {
 					img="../src/assets/img/electric-iron.jpg"
 				/>
 				<CardProduct
-					name="Máquina de Afeitar"
+					name="Máquina Tostadora Digital"
 					date="A precio del 2022"
-					description="Máquina de afeitar. Enjuagable. Eléctrica"
-					img="../src/assets/img/shaver.jpg"
+					description="Máquina para tostar el pan, eléctrica, de apagado automático"
+					img="../src/assets/img/bread-machine.jpg"
 				/>
         	</div>
 		</>

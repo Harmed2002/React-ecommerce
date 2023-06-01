@@ -7,24 +7,24 @@ import { CardActionArea } from "@mui/material";
 import './CardProduct.css'
 
 const CardProduct = ({ img, name, description, date }) => {
-  return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardActionArea>
-        <CardMedia component="img" image={img} alt="logo-product" />
-        <CardContent>
-          <Typography gutterBottom variant="h4" component="div">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            {description}
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {date}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-    </Card>
-  );
+	return (
+		<Card sx={{ maxWidth: 345, backgroundColor:'black' }}>
+			<CardActionArea>
+				<CardMedia component="img" image={img} alt="logo-product" />
+				<CardContent>
+					<Typography gutterBottom variant="h4" component="div" color="white">
+						{name}
+					</Typography>
+					<Typography variant="body2" color="white">
+						{description}
+					</Typography>
+					<Typography variant="caption" color="white">
+						{date}
+					</Typography>
+				</CardContent>
+			</CardActionArea>
+		</Card>
+	);
 };
 
 export default CardProduct;
