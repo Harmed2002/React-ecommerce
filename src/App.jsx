@@ -36,7 +36,7 @@ function App() {
 					description="Máquina para tostar el pan, eléctrica, de apagado automático"
 					img="../src/assets/img/bread-machine.jpg"
 				/>
-        	</div>
+			</div>
 		</>
 	);
 }
