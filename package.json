@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://harmed2002.github.io/React-ecommerce/",
+  "homepage": "https://harmed2002.github.io/React-ecommerce",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
