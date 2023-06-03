@@ -15,11 +15,10 @@ App e-commerce de venta de electrodomésticos que desarrolla interfaces y reacti
 Instalar las dependencias y devDependencias y arrancar el servidor.
 
 ```
-npm create vite@latest
+git clone https://github.com/Harmed2002/React-ecommerce.git
+cd ../path/to/the/file/React-ecommerce
 npm install
 npm run dev
-npm install @mui/material @emotion/react @emotion/styled
-npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 ```
 
 Para ambiente de producción...
