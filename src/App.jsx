@@ -1,43 +1,35 @@
 import './App.css';
-// import NavBar from './components/NavBAr/NavBar';
-import AppBar from './components/AppBar/AppBar';
+// Components
 import Header from './components/Header/Header';
+import NavBar from './components/NavBar/NavBar'
 import ItemListContainer from "./components/ItemListContainer/ItemListContainer";
-import CardProduct from './components/CardProduct/CardProduct';
 
-function App() {
+// Pages
+import HomePage from "./pages/HomePage/HomePage";
+import DetailPage from "./pages/DetailPage/DetailPage";
+import CategoryPage from "./pages/CategoryPage/CategoryPage";
+import ContactPage from "./pages/ContactPage/ContactPage";
 
+// React Router Dom
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+
+const App = () => {
 	return (
-		<>
-			<Header />
-			{/* <NavBar /> */}
-			<AppBar />
-
-			<div>
-				<ItemListContainer greeting = "Saludos a nuestros clientes!" />
+		<Router>
+			<div className="App">
+				<Header />
+				<NavBar />
+				<div>
+					<ItemListContainer greeting = "Saludos a nuestros clientes!" />
+				</div>
+				<Routes>
+					<Route path="/" element={<HomePage />} />
+					<Route path="/detail/:id" element={<DetailPage />} />
+					<Route path="/category/:categoryId" element={<CategoryPage />} />
+					<Route path="/contact" element={<ContactPage />} />
+				</Routes>
 			</div>
-			
-			<div className="ProductSection">
-				<CardProduct
-					name="Máquina Tostadora"
-					date="A precio del 2022"
-					description="Máquina para tostar el pan, eléctrica, de apagado automático"
-					img="../src/assets/img/bread-machine.jpg"
-				/>
-				<CardProduct
-					name="Plancha Eléctrica"
-					date="A precio del 2022"
-					description="Plancha de ropa, con vapor de agua y control de temperatura"
-					img="../src/assets/img/electric-iron.jpg"
-				/>
-				<CardProduct
-					name="Máquina Tostadora Digital"
-					date="A precio del 2022"
-					description="Máquina para tostar el pan, eléctrica, de apagado automático"
-					img="../src/assets/img/bread-machine.jpg"
-				/>
-			</div>
-		</>
+		</Router>
 	);
 }
 

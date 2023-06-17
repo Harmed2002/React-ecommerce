@@ -1,16 +1,22 @@
 .Header {
-    display: flex;
+    margin: 0%;
+    /* display: flex; */
     justify-content: center;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     background-color: black;
     width: 100%;
     /* min-height: 10vh; */
-    height: 120px;
+    height: 30vh;
     /* border: 0px solid yellow; */
 }
 
 .Header h1, h2 {
     color: white;
     margin: 0%;
+}
+
+.Header img {
+    width: 100%;
+    height: 100%;
 }

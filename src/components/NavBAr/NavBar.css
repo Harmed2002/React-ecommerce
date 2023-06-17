@@ -1,5 +1,5 @@
 .NavBar {
-	background-color: white;
+	/* background-color: white; */
 	height: 10vh;
 }
 
@@ -20,3 +20,31 @@ a {
 	text-decoration: none;
 	color: white;
 }
+
+/* DROPDOWN   */
+.dropdown-li {
+	position: relative;
+  }
+  
+  .dropdown-li:hover .dropdown {
+	display: block;
+	opacity: 1;
+  }
+  
+  .dropdown {
+	background-color: slateblue;
+	margin: 0;
+	padding: 10px;
+	width: 200%;
+	position: absolute;
+	left: 0;
+	top: 100%;
+	opacity: 0;
+	display: none;
+	background: red;
+  }
+  
+  .dropdown li {
+	list-style: none;
+	margin: 5%;
+  }

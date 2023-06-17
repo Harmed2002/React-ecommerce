@@ -1,11 +1,14 @@
-import React from 'react'
-import './Header.css'
+import React from 'react';
+import { Link } from "react-router-dom";
+import './Header.css';
+import banner from '../../assets/img/Banner-opt.jpg';
 
 const Header = () => {
 	return (
 		<div className="Header">
-			<h1>React E-Commerce</h1>
-			<h2>Los mejores productos para tu hogar</h2>
+			<Link to="/">
+				<img src={banner} alt="Banner logo" width={300} />
+			</Link>
 		</div>
 	);
 };
