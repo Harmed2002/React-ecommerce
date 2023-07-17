@@ -1,18 +1,26 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
-import React from 'react';
+
+import { useState, useEffect } from 'react';
 import './ItemCount.css';
 
-const ItemCount = () => {
+
+// stock => Stock actual del producto, la cantidad de compra no puede superar este valor
+const ItemCount = ({ stock, newItem }) => {
+	const qtyInitial = 1; 
+	const [qty, setQty] = useState(qtyInitial); // La cantidad inicial de compra del producto tiene que ser >= 1
+
+	useEffect(() => {
+		newItem.quantity = qty;
+	}, [newItem, qty]);
+
 	return (
 		<div className='itemCount'>
-			<label htmlFor="cant">Cantidad</label>
 			<div className='itemControls'>
-				<button>-</button>
-				<input type="text" id="cant" name="cant" disabled></input>
-				<button>+</button>
+				<button onClick={ () => setQty(qty - 1) } disabled={ qty === qtyInitial }>-</button>
+				<input type="text" id="cant" name="cant" disabled value={ qty }></input>
+				<button onClick={ () => setQty(qty + 1) } disabled={ qty === stock }>+</button>
 			</div>
-			<button>Agregar al Carrito</button>
 		</div>
 	)
 }

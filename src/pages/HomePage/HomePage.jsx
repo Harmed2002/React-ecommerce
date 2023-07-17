@@ -2,10 +2,17 @@
 import React from "react";
 import ListProduct from '../../components/ListProduct/ListProduct';
 
+const styles = {
+	containerHome: {
+		textAlign: "center",
+		paddingTop: 20,
+	},
+};
+
 const HomePage = () => {
     return (
-        <div>
-            <h1>Home Page</h1>
+        <div style={styles.containerHome}>
+            <h2>Home Page</h2>
             <ListProduct />
         </div>
     );

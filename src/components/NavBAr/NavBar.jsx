@@ -1,24 +1,46 @@
 import { useState, useEffect } from 'react';
-import axios from "axios";
 import CardWidget from "../CardWidget/CardWidget";
-import './NavBar.css'
 import { Link } from 'react-router-dom';
+import './NavBar.css';
+
+// Imports de Firebase
+import { db } from "../../firebase/firebaseConfig";
+import { collection, query, getDocs } from "firebase/firestore"; 
 
 const NavBar = () => {
-	const [cats, setCats] = useState([]);
+	const [prods, setProds] = useState([]);
+	const categories = [];
 
+	// Obtengo los productos
 	useEffect(() => {
-		axios(`${import.meta.env.VITE_APP_BASE_URL}/categories`)
-			.then(json => setCats(json.data));
+		const getProds = async () => {
+			const q = query(collection(db, "products"));
+			const querySnapshot = await getDocs(q);
+			const products = [];
+
+			querySnapshot.forEach((doc) => {
+				products.push({ ...doc.data() });
+			});
+			setProds(products);	// Pasamos a Products todo lo que trae docs de Firestore
+		};
+		getProds();
 	}, []);
 
-	//console.log('cats', cats);
+	// Obtengo solo las categorías
+	prods.map((element, index) => {
+		categories.push(element.category);
+	})
+
+	// Elimino las categorías duplicadas
+	let cats = categories.filter((item, index) => {
+		return categories.indexOf(item) === index;
+	});
 	
 	return (
 		<nav className="NavBar">
 			<ul>
 				<Link to="/">Home</Link>
-				<li className="dropdown-li">Categorías
+				<li className="dropdown-li">Categories
 					<ul className="dropdown">
 						{cats.map((element, index) => {
 							return (
@@ -31,7 +53,7 @@ const NavBar = () => {
 					</ul>
 				</li>
 				<Link to="/contact">Contact</Link>
-				<Link><CardWidget /></Link>
+				<Link to="/shop"><CardWidget /></Link>
 			</ul>
 		</nav>
 	);

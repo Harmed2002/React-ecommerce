@@ -1,31 +1,47 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import CardProduct from '../../components/CardProduct/CardProduct';
-import axios from "axios";
 import { Link } from 'react-router-dom';
 
+// Imports de Firebase
+import { db } from "../../firebase/firebaseConfig";
+import { collection, query, where, getDocs } from "firebase/firestore";
+
+const styles = {
+	containerContact: {
+		textAlign: "center",
+		paddingTop: 20,
+	},
+};
+
+
 const CategoryPage = () => {
-	let { categoryId } = useParams();
-	const [cats, setCats] = useState([]);
+	let { category } = useParams();
+	const [cat, setCat] = useState([]);
 	let detail = false;
 	
 	useEffect(() => {
-		axios(`${import.meta.env.VITE_APP_BASE_URL}`)
-			.then(json => setCats(json.data));
-	}, [categoryId]);
+		const getProducts = async () => {
+			const q = query(collection(db, "products"), where("category", "==", category));
+			const querySnapshot = await getDocs(q);
+			const docs = [];
+			
+			// console.log("size", querySnapshot.size);
 
-	let filteredProducts = cats.filter((cat) => {
-		return cat.category === categoryId;
-	});
+			querySnapshot.forEach((doc) => {
+				docs.push({ ...doc.data(), id: doc.id });	// Unimos en un solo array la data y el id que vienen separados de Firestore
+			});
 
-	// console.log('categoryId', categoryId);
-	// console.log('filteredProducts', filteredProducts);
+			setCat(docs);	// Pasamos a cat todo lo que trae docs de Firestore
+		};
+		getProducts();
+	}, [category]);
 
 	return (
 		<>
-			<h1>{categoryId}</h1>
+			<h2 style={styles.containerContact}>{category}</h2>
 			<div className='Card-list'>
-				{filteredProducts.map((prod) => {
+				{cat.map((prod) => {
 					return (
 						<div style={{ margin: 5 }} key={prod.id}>
 							<Link to={`/detail/${prod.id}`}>
