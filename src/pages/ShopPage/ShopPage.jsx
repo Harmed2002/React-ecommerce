@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import TextField from '@mui/material/TextField';
 import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
 import MessageSuccess from "../../components/MessageSuccess/MessageSuccess";
@@ -18,52 +18,40 @@ const initialState = {
 	lastname: "",
 	phone: "",
 	email: "",
-	
 };
 
-const customTheme = (outerTheme) =>
-  createTheme({
-    palette: {
-      mode: outerTheme.palette.mode,
-    },
-    components: {
-      MuiTextField: {
-        styleOverrides: {
-          root: {
-            '--TextField-brandBorderColor': '#E0E3E7',
-            '--TextField-brandBorderHoverColor': '#B2BAC2',
-            '--TextField-brandBorderFocusedColor': '#FFFFFF',
-            '& label.Mui-focused': {
-              color: 'var(--TextField-brandBorderFocusedColor)',
-            },
-          },
-        },
-      },
-    },
-});
+// const customTheme = (outerTheme) =>
+//   createTheme({
+//     palette: {
+//       mode: outerTheme.palette.mode,
+//     },
+//     components: {
+//       MuiTextField: {
+//         styleOverrides: {
+//           root: {
+//             '--TextField-brandBorderColor': '#E0E3E7',
+//             '--TextField-brandBorderHoverColor': '#B2BAC2',
+//             '--TextField-brandBorderFocusedColor': '#FFFFFF',
+//             '& label.Mui-focused': {
+//               color: 'var(--TextField-brandBorderFocusedColor)',
+//             },
+//           },
+//         },
+//       },
+//     },
+// });
 
 const ShopPage = () => {
 	const outerTheme = useTheme();
 	const [values, setValues] = useState(initialState); // Para setear los datos del form
-	const [purchaseID, setPurchaseID] = useState(""); // Este estado está destinado a guardar el id de la compra
+	const [purchaseID, setPurchaseID] = useState(""); // Guarda el id de la compra
 	const [items, clearCart] = useContext(SalesContext);
+	const [email, setEmail] = useState("");
+	const [emailError, setEmailError] = useState(false);
 
 	// Obtengo la fecha de hoy
 	const todayTime = new Date(Date.now());
 	const today = todayTime.getFullYear().toString() + '-' + (todayTime.getMonth() + 1).toString().padStart(2, '0') + '-' + todayTime.getDate().toString();
-
-	// // Convierto el array en un objeto
-	// const object = items.reduce((acc, item) => {
-	// 	acc[item.id] = item
-	// 	return acc
-	// }, {})
-
-	// const object = items.reduce((acc, item) => {
-	// 	if (item.id) {
-	// 		acc[item.id] = item
-	// 		return acc
-	// 	}
-	// }, {})
 
 	// Manejador de los campos del formulario
 	const handleOnChange = (e) => {
@@ -74,6 +62,11 @@ const ShopPage = () => {
 	// Envío de datos del formulario
 	const onSubmit = async (e) => {
 		e.preventDefault();
+
+		setEmailError(false)
+        if (email == '') {
+            setEmailError(true)
+        }
 
 		// Convierto el array en un objeto
 		const object = items.reduce((acc, item) => {
@@ -108,6 +101,7 @@ const ShopPage = () => {
 								value={values.name}
 								onChange={handleOnChange}
 								label="Name"
+								required
 							/>
 							<TextField
 								color="secondary"
@@ -117,6 +111,7 @@ const ShopPage = () => {
 								value={values.lastname}
 								onChange={handleOnChange}
 								label="Last Name"
+								required
 							/>
 							<TextField
 								color="secondary"
@@ -135,6 +130,10 @@ const ShopPage = () => {
 								value={values.email}
 								onChange={handleOnChange}
 								label="Email"
+								type="email"
+								required
+								onBlur={e => setEmail(e.target.value)}
+								error={emailError}
 							/>
 							<button className="btnASendAction" type="submit">Finalizar Compra</button>
 						</form>

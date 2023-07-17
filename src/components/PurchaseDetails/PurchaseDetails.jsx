@@ -11,24 +11,24 @@ import Paper from '@mui/material/Paper';
 
 const PurchaseDetails = () => {
 	const [items] = useContext(SalesContext);
-
 	const TAX_RATE = 0.07;
+	let totalItem = 0;
 
 	function ccyFormat(num) {
 		return `${num.toFixed(2)}`;
 	}
 
-	function priceRow(qty, unit) {
-		return qty * unit;
-	}
-
-	function createRow(desc, qty, unit) {
-		const price = priceRow(qty, unit);
-		return { desc, qty, unit, price };
-	}
+	// function createRow(desc, qty, price) {
+	// 	const totalItem = qty * price;
+	// 	return { desc, qty, price, totalItem };
+	// }
 
 	function subtotal(items) {
-		return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+		// return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
+		items.map((row) => (
+			totalItem += row.quantity * row.price
+		))
+		return totalItem;
 	}
 
 	// const rows = [
@@ -61,7 +61,7 @@ const PurchaseDetails = () => {
 				<TableBody>
 					{items.map((row) => (
 						<TableRow key={row.id}>
-							<TableCell>{row.title}</TableCell>
+							<TableCell width="250">{row.title}</TableCell>
 							<TableCell align="right">{row.quantity}</TableCell>
 							<TableCell align="right">{row.price}</TableCell>
 							<TableCell align="right">{ccyFormat(row.price * row.quantity)}</TableCell>
