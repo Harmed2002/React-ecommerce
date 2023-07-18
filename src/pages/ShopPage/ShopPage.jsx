@@ -1,8 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React, { useState, useContext, useEffect } from 'react';
-import TextField from '@mui/material/TextField';
-// import { useTheme } from '@mui/material/styles';
+import { TextField } from '@mui/material';
 import MessageSuccess from "../../components/MessageSuccess/MessageSuccess";
 import PurchaseDetails from "../../components/PurchaseDetails/PurchaseDetails";
 // Context
@@ -43,7 +42,8 @@ const ShopPage = () => {
 	const onSubmit = async (e) => {
 		e.preventDefault();
 
-		setEmailError(false)
+		// Valido que el campo de email no esté vacío
+		setEmailError(false);
         if (email == '') {
             setEmailError(true)
         }
