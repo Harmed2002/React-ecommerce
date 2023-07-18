@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
-import { createTheme, ThemeProvider, useTheme } from '@mui/material/styles';
+// import { useTheme } from '@mui/material/styles';
 import MessageSuccess from "../../components/MessageSuccess/MessageSuccess";
 import PurchaseDetails from "../../components/PurchaseDetails/PurchaseDetails";
 // Context
@@ -20,38 +20,18 @@ const initialState = {
 	email: "",
 };
 
-// const customTheme = (outerTheme) =>
-//   createTheme({
-//     palette: {
-//       mode: outerTheme.palette.mode,
-//     },
-//     components: {
-//       MuiTextField: {
-//         styleOverrides: {
-//           root: {
-//             '--TextField-brandBorderColor': '#E0E3E7',
-//             '--TextField-brandBorderHoverColor': '#B2BAC2',
-//             '--TextField-brandBorderFocusedColor': '#FFFFFF',
-//             '& label.Mui-focused': {
-//               color: 'var(--TextField-brandBorderFocusedColor)',
-//             },
-//           },
-//         },
-//       },
-//     },
-// });
-
 const ShopPage = () => {
-	const outerTheme = useTheme();
+	// const outerTheme = useTheme();
 	const [values, setValues] = useState(initialState); // Para setear los datos del form
 	const [purchaseID, setPurchaseID] = useState(""); // Guarda el id de la compra
-	const [items, clearCart] = useContext(SalesContext);
+	const [items, qtyTotal, addItemToCart, clearCart] = useContext(SalesContext);
 	const [email, setEmail] = useState("");
 	const [emailError, setEmailError] = useState(false);
+	const [disabledButton, setDisabledButton] = useState(true);
 
-	// Obtengo la fecha de hoy
-	const todayTime = new Date(Date.now());
-	const today = todayTime.getFullYear().toString() + '-' + (todayTime.getMonth() + 1).toString().padStart(2, '0') + '-' + todayTime.getDate().toString();
+	useEffect(() => {
+		setDisabledButton(items.length == 0 ? true : false);
+	}, [items]);
 
 	// Manejador de los campos del formulario
 	const handleOnChange = (e) => {
@@ -74,17 +54,21 @@ const ShopPage = () => {
 			return acc
 		}, {})
 
+		// Obtengo la fecha actual
+		const todayTime = new Date(Date.now());
+		const today = todayTime.getFullYear().toString() + '-' + (todayTime.getMonth() + 1).toString().padStart(2, '0') + '-' + todayTime.getDate().toString();
+
 		// Add a new document with a generated id.
 		const docRef = await addDoc(collection(db, "purchases"), {values, items: object, date: today});
-		// console.log("Document written with ID: ", docRef.id);
 		setPurchaseID(docRef.id);
-		setValues(initialState);
-		clearCart();
+		setValues(initialState); // Se limpia el form
+		clearCart(); // Se limpia el carrito
+		setDisabledButton(true);
 	};
 
 	return (
 		<>
-			{(items && items.length > 0) ? 
+			{/* {(items && items.length > 0) ?  */}
 				<div className='containerShop'>
 					<div className='detailsContainer'>
 						<h2>Purchase Details</h2>
@@ -135,12 +119,12 @@ const ShopPage = () => {
 								onBlur={e => setEmail(e.target.value)}
 								error={emailError}
 							/>
-							<button className="btnASendAction" type="submit">Finalizar Compra</button>
+							<button className="btnASendAction" type="submit" disabled={disabledButton}>Finalizar Compra</button>
 						</form>
 						{purchaseID && <MessageSuccess purchaseID={purchaseID} />}
 					</div>
 				</div>
-			: <h3>El Carrito de compras está vacío</h3> }
+			{/*  <h3>El Carrito de compras está vacío</h3> } */}
 		</>
 	);
 };

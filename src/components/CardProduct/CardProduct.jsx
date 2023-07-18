@@ -18,7 +18,7 @@ import './CardProduct.css';
 const CardProduct = ( props ) => {
 	// Desestructurando:
 	const { id, title, description, category, image, price, stock, detail} = props;
-	const [items, addItemToCart] = useContext(SalesContext);
+	const [items, qtyTotal, addItemToCart] = useContext(SalesContext);
 
 	const newItem = {
 			id:				id,

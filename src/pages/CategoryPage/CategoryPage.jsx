@@ -14,7 +14,6 @@ const styles = {
 	},
 };
 
-
 const CategoryPage = () => {
 	let { category } = useParams();
 	const [cat, setCat] = useState([]);
@@ -25,8 +24,6 @@ const CategoryPage = () => {
 			const q = query(collection(db, "products"), where("category", "==", category));
 			const querySnapshot = await getDocs(q);
 			const docs = [];
-			
-			// console.log("size", querySnapshot.size);
 
 			querySnapshot.forEach((doc) => {
 				docs.push({ ...doc.data(), id: doc.id });	// Unimos en un solo array la data y el id que vienen separados de Firestore

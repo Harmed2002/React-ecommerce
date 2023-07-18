@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { SalesContext } from "../../context/SalesContext";
 
 import Table from '@mui/material/Table';
@@ -18,30 +18,24 @@ const PurchaseDetails = () => {
 		return `${num.toFixed(2)}`;
 	}
 
-	// function createRow(desc, qty, price) {
-	// 	const totalItem = qty * price;
-	// 	return { desc, qty, price, totalItem };
-	// }
-
 	function subtotal(items) {
 		// return items.map(({ price }) => price).reduce((sum, i) => sum + i, 0);
-		items.map((row) => (
-			totalItem += row.quantity * row.price
-		))
+		totalItem = 0;
+
+		try {
+			items.map((row) => (
+				row.quantity ? (totalItem += row.quantity * row.price) : 0
+			))
+		} catch (error) {
+			console.log(error);
+		}
+		
 		return totalItem;
 	}
-
-	// const rows = [
-	// 	createRow('Paperclips (Box)', 100, 1.15),
-	// 	createRow('Paper (Case)', 10, 45.99),
-	// 	createRow('Waste Basket', 2, 17.99),
-	// ];
 
 	const invoiceSubtotal = subtotal(items);
 	const invoiceTaxes = TAX_RATE * invoiceSubtotal;
 	const invoiceTotal = invoiceTaxes + invoiceSubtotal;
-
-	// console.log("items", items);
 
 	return (
 		<TableContainer component={Paper}>
