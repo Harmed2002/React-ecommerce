@@ -61,12 +61,6 @@ const CardProduct = ( props ) => {
 										<AddShoppingCartIcon />
 									</IconButton>
 								</Tooltip>
-								{/* <Button onClick={ () => addCart() } variant="contained" color="success" size="small" endIcon={<ArrowBackTwoToneIcon color="white" />} >
-									Home
-								</Button> */}
-								{/* <Button onClick={ () => addCart() } variant="contained" color="success" size="small" endIcon={<AddShoppingCartIcon color="white" />} >
-									Add
-								</Button> */}
 								<ItemCount stock={ stock } newItem={ newItem } />
 							</div>
 						</CardActions>
